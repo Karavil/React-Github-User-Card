@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 
 import styled, { createGlobalStyle } from "styled-components";
+import { transparentize } from "polished";
 
 import UserCard from "./components/UserCard";
 import Followers from "./components/Followers";
@@ -16,6 +17,10 @@ const Global = createGlobalStyle`
       box-sizing: border-box;
       font-family: "Raleway", sans-serif;
    }
+
+   html {
+      overflow-y: scroll;
+   }
    body {
       margin: 0;
    }
@@ -23,18 +28,24 @@ const Global = createGlobalStyle`
 
 const Container = styled.div`
    min-height: 100vh;
-   width: 100%;
+   max-width: 1000px;
+
+   margin: 0 auto;
+   padding: 100px 0 25px;
 
    display: flex;
    flex-direction: column;
-   justify-content: center;
    align-items: center;
 `;
 
 const Bar = styled.div`
    width: 100%;
    padding: 30px 0;
-   background: black;
+
+   position: absolute;
+   top: 0;
+
+   background: ${transparentize(0.1, "black")};
 
    display: flex;
    justify-content: center;
@@ -46,9 +57,8 @@ const LookupInput = styled.input`
    border-radius: 20px;
 
    width: 400px;
-   padding: 1rem 0.2rem;
+   padding: 1rem 1.5rem;
 
-   text-align: center;
    font-size: 1.2rem;
 
    transition: 0.3s all ease;
