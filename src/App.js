@@ -12,7 +12,7 @@ const github = axios.create({
 });
 
 const Container = styled.div`
-   height: 100vh;
+   min-height: 100vh;
    width: 100%;
 
    display: flex;
@@ -51,6 +51,15 @@ class App extends React.Component {
             .then(() => {
                if (this.state.firstSearch)
                   this.setState({ firstSearch: false });
+            });
+         github
+            .get(`/users/${this.state.username}/followers`)
+            .then(res => {
+               console.log(res.data);
+               this.setState({ followers: res.data });
+            })
+            .catch(e => {
+               console.error("Error while getting user followers:", e);
             });
       }
    }
