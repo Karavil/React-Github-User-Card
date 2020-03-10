@@ -9,7 +9,7 @@ const Container = styled.div`
    justify-content: center;
    align-items: center;
 
-   h3 {
+   p {
       margin: 2px 0;
    }
 `;
@@ -17,9 +17,9 @@ const Container = styled.div`
 const Followers = ({ followers }) => {
    console.log("FOLLOWER 0", followers[0]);
    const Followers = followers.map((follower, index) => (
-      <h3>
-         {index}. {follower.login}
-      </h3>
+      <p>
+         {index + 1}. {follower.login}
+      </p>
    ));
    return (
       <Container>
