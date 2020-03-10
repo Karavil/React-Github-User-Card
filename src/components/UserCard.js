@@ -4,7 +4,10 @@ import styled from "styled-components";
 const Card = styled.a`
    width: 450px;
    padding: 20px;
+
    display: block;
+
+   border-radius: 10px;
 
    color: black;
    text-decoration: none;
@@ -14,7 +17,7 @@ const Card = styled.a`
    cursor: pointer;
 `;
 
-const UserCard = ({ user }) => {
+const UserCard = ({ user, firstSearch }) => {
    console.log("USER", user);
    return (
       <>
@@ -25,7 +28,7 @@ const UserCard = ({ user }) => {
                <h2>{user.bio}</h2>
             </Card>
          )}
-         {(!user || !user.name) && <h2>No user found.</h2>}
+         {!firstSearch && (!user || !user.name) && <h2>No user found.</h2>}
       </>
    );
 };

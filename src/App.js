@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
 
+import styled from "styled-components";
+
 import UserCard from "./components/UserCard";
 import Followers from "./components/Followers";
 
@@ -9,10 +11,26 @@ const github = axios.create({
    baseURL: BASE_GITHUB_API
 });
 
+const Container = styled.div`
+   height: 100vh;
+   width: 100%;
+
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+`;
+
+const LookupInput = styled.input`
+   border: 1px solid grey;
+   padding: 1rem 1.5rem;
+`;
+
 class App extends React.Component {
    constructor() {
       super();
       this.state = {
+         firstSearch: true,
          username: "",
          user: null,
          followers: []
@@ -21,7 +39,6 @@ class App extends React.Component {
 
    componentDidUpdate(prevProps, prevState) {
       if (this.state.username !== prevState.username) {
-         console.log("Username changed");
          github
             .get(`/users/${this.state.username}`)
             .then(res => {
@@ -30,19 +47,27 @@ class App extends React.Component {
             })
             .catch(e => {
                console.error("Error while getting user data:", e);
+            })
+            .then(() => {
+               if (this.state.firstSearch)
+                  this.setState({ firstSearch: false });
             });
       }
    }
 
    render() {
       return (
-         <div className="App">
-            <input
+         <Container>
+            <LookupInput
                onChange={e => this.setState({ username: e.target.value })}
-            ></input>
-            <UserCard user={this.state.user} />
+            ></LookupInput>
+
+            <UserCard
+               user={this.state.user}
+               firstSearch={this.state.firstSearch}
+            />
             <Followers followers={this.state.followers} />
-         </div>
+         </Container>
       );
    }
 }
