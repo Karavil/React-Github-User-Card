@@ -6,6 +6,11 @@ const Card = styled.a`
    padding: 20px;
    min-height: 200px;
 
+   display: flex !important;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+
    margin: 30px 0 10px;
 
    display: block;
@@ -19,6 +24,14 @@ const Card = styled.a`
    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
    cursor: ${props => (props.hoverEffect ? "cursor" : {})};
+
+   h1 {
+      margin: 0 0 5px 0;
+   }
+
+   p {
+      margin: 3px 0;
+   }
 `;
 
 const UserCard = ({ user, firstSearch }) => {
@@ -28,8 +41,12 @@ const UserCard = ({ user, firstSearch }) => {
          {user && user.name && (
             <Card href={user.html_url} hoverEffect={true}>
                <h1>{user.name}</h1>
-               <p>{user.location}</p>
-               <p>{user.bio}</p>
+               <p>
+                  <b>Location</b>: {user.location}
+               </p>
+               <p>
+                  <b>Bio</b>: {user.bio}
+               </p>
             </Card>
          )}
          {!firstSearch && (!user || !user.name) && (
